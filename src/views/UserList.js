@@ -1,31 +1,31 @@
 import React from "react";
 import { View, Text, FlatList } from "react-native";
-import users from "../data/users";
 import { Accessory, Avatar, ListItem } from "react-native-elements";
 import { ListItemContent } from "@rneui/base/dist/ListItem/ListItem.Content";
 
+import users from "../data/users";
+
 export default (props) => {
-  function getUserItem({ item: user }) {
+  // console.warn(Object.keys(props));
+
+  const getUserItem = ({ item: user }) => {
+    console.log(user);
     return (
-      <>
-        <ListItem
-          bottomDivider
-          onPress={() => props.navigation.navigate("UserForm")}>
-          <Avatar source={{ uri: user.avatarUrl }}></Avatar>
-          <ListItemContent>
-            <ListItem.Title>{user.name}</ListItem.Title>
-            <ListItem.Subtitle>{user.email}</ListItem.Subtitle>
-          </ListItemContent>
-          <ListItem.Chevron />
-        </ListItem>
-      </>
+      <ListItem
+        leftAvatar={{ source: { uri: user.avatarUrl } }}
+        key={user.id}
+        title={user.name}
+        subtitle={user.email}
+        bottomDivider
+        onPress={() => props.navigation.navigate("UserForm")}
+      />
     );
-  }
+  };
 
   return (
     <View>
       <FlatList
-        keyExtractor={(user) => user.id}
+        keyExtractor={(user) => user.id.toString()}
         data={users}
         renderItem={getUserItem}
       />
