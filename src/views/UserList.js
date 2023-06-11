@@ -1,15 +1,10 @@
 import React from "react";
-import { View, Text, FlatList } from "react-native";
-import { Accessory, Avatar, ListItem } from "react-native-elements";
-import { ListItemContent } from "@rneui/base/dist/ListItem/ListItem.Content";
-
+import { View, FlatList } from "react-native";
 import users from "../data/users";
+import { Button, ListItem, Text } from "react-native-elements";
 
 export default (props) => {
-  // console.warn(Object.keys(props));
-
-  const getUserItem = ({ item: user }) => {
-    console.log(user);
+  function getUserItem({ item: user }) {
     return (
       <ListItem
         leftAvatar={{ source: { uri: user.avatarUrl } }}
@@ -17,13 +12,14 @@ export default (props) => {
         title={user.name}
         subtitle={user.email}
         bottomDivider
-        onPress={() => props.navigation.navigate("UserForm")}
+        onPress={() => props.navigation.navigate("UserForm", user)}
       />
     );
-  };
+  }
 
   return (
     <View>
+      <Button title="Solid Button" />
       <FlatList
         keyExtractor={(user) => user.id.toString()}
         data={users}
